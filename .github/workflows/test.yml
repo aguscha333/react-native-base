@@ -1,0 +1,50 @@
+name: Test 
+
+on:
+  push:
+
+env:
+  CC_TEST_REPORTER_ID: 61a3188d5e43ddaabd2bc378538388dfbe4b91df4015bf5af41696852eb2c3cf
+  NODE_ENV: development
+
+jobs:
+
+  ci:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+  
+    - name: Restore yarn cache
+      uses: actions/cache@v2.0.0
+      id: yarn-cache
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-build-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-yarn-
+
+    - name: Install dependencies
+      uses: borales/actions-yarn@v2.0.2
+      with:
+        cmd: install
+    
+    - name: Run tests
+      uses: borales/actions-yarn@v2.0.2
+      with:
+        cmd: test:cover
+
+    - name: Setup Code Climate test reporter
+      run: |
+        pwd
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+        ./cc-test-reporter after-build
