@@ -22,7 +22,8 @@
     "test:cover": "yarn run test --coverage",
     "prettier": "prettier --write './src/**/*.js'",
     "storybook": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
-    "prestorybook": "rnstl"
+    "prestorybook": "rnstl",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.7.1",
@@ -35,6 +36,7 @@
     "humps": "2.0.1",
     "immer": "5.0.0",
     "lodash": "4.17.15",
+    "patch-package": "^6.2.2",
     "prop-types": "15.7.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
