@@ -31,6 +31,8 @@
     "@react-navigation/native": "^5.0.0",
     "@react-navigation/stack": "^5.0.0",
     "@rootstrap/redux-tools": "^0.4.2",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-ondevice-actions": "^5.3.19",
     "axios": "^0.19.2",
     "eslint-plugin-prettier": "3.1.0",
     "humps": "2.0.1",
